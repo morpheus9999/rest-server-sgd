@@ -16,10 +16,13 @@ public enum InfoDao {
             instance;
 
 	private Map<String, Info> contentProvider = new HashMap<String, Info>();
+        private Medicoes medir = new Medicoes();
+        
 
 	private InfoDao() {
 
-		//Info todo = new Info("1", "Learn REST");
+		Info todo = new Info("1","test", 1,1,1,1,1,1,1,1,1,1,1);
+                contentProvider.put(todo.getId(), todo); 
 		//todo.setDescription("Read http://www.vogella.de/articles/REST/article.html");
 		//contentProvider.put("1", todo);
 		//todo = new Info("2", "Do something");
@@ -30,7 +33,9 @@ public enum InfoDao {
 	public Map<String, Info> getModel(){
 		return contentProvider;
 	}
-    
+        public Medicoes getMedicoes(){
+            return medir;
+        }
     
     
 }

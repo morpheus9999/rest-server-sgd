@@ -51,6 +51,7 @@ public class InfoResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
 	public Response putInfo(JAXBElement<Info> info) {
+            System.out.println("ENTRA PUT XML");
 		Info c = info.getValue();
 		return putAndGetResponse(c);
 	}
@@ -64,12 +65,18 @@ public class InfoResource {
 
 	private Response putAndGetResponse(Info info) {
 		Response res;
-		if(InfoDao.instance.getModel().containsKey(info.getCaller_id())) {
+                System.out.println("ENTRA PUT n sei");
+		if(InfoDao.instance.getModel().containsKey(info.getId())) {
 			res = Response.noContent().build();
 		} else {
 			res = Response.created(uriInfo.getAbsolutePath()).build();
 		}
-		InfoDao.instance.getModel().put(info.getCaller_id(), info);
+		InfoDao.instance.getModel().put(info.getId(), info);
+                long tempoFinal = System.currentTimeMillis();
+                int tempoInicial =info.getTempoInicial();
+                long tempo = tempoFinal - tempoInicial;
+                
+                InfoDao.instance.getMedicoes().add(tempo);
 		return res;
 	}
 

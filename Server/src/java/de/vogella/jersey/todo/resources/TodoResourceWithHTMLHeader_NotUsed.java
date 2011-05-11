@@ -35,6 +35,8 @@ public class TodoResourceWithHTMLHeader_NotUsed {
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Todo getTodo() {
+            
+            System.out.println("ENTRA XML todo 0");
 		Todo todo = TodoDao.instance.getModel().get(id);
 		if(todo==null)
 			throw new RuntimeException("Get: Todo with " + id +  " not found");
@@ -54,6 +56,7 @@ public class TodoResourceWithHTMLHeader_NotUsed {
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
 	public Response putContact(JAXBElement<Todo> todo) {
+            System.out.println("ENTRA XML todo");
 		Todo c = todo.getValue();
 		return putAndGetResponse(c);
 	}
@@ -61,6 +64,7 @@ public class TodoResourceWithHTMLHeader_NotUsed {
 
 	@PUT
 	public Response putTodo(@Context HttpHeaders headers, byte[] in) {
+            System.out.println("ENTRA XML todo2");
 		Map<String,String> params = parse(new String(in));
 		Todo c = new Todo(params.get("id"), params.get("summary"));
 
@@ -75,6 +79,7 @@ public class TodoResourceWithHTMLHeader_NotUsed {
 	}
 
 	private Response putAndGetResponse(Todo todo) {
+            System.out.println("ENTRA XML todo 3");
 		Response res;
 		if(TodoDao.instance.getModel().containsKey(todo.getId())) {
 			res = Response.noContent().build();

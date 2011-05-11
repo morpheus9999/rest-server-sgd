@@ -1,3 +1,6 @@
+
+import de.vogella.jersey.todo.model.Info;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -36,7 +39,7 @@ public class Generator {
             duration = (int) (Math.random() * 990) + 10;
             
 
-            dados[j] = new Info(name, duration, 37, 0, 0, 39, 39583, 36267, 238, 237955, 39583, 39583335);
+            dados[j] = new Info(Integer.toString(j),name, duration, 37, 0, 0, 39, 39583, 36267, 238, 237955, 39583, 39583335);
 
         }
 

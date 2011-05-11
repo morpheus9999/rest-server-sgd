@@ -32,6 +32,7 @@ public class TodoResource {
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Todo getTodo() {
+            System.out.println("ENTRA XML todo 00");
 		Todo todo = TodoDao.instance.getModel().get(id);
 		if(todo==null)
 			throw new RuntimeException("Get: Todo with " + id +  " not found");
@@ -51,6 +52,7 @@ public class TodoResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
 	public Response putTodo(JAXBElement<Todo> todo) {
+            System.out.println("ENTRA XML todo 11");
 		Todo c = todo.getValue();
 		return putAndGetResponse(c);
 	}
@@ -63,6 +65,7 @@ public class TodoResource {
 	}
 
 	private Response putAndGetResponse(Todo todo) {
+            System.out.println("ENTRA XML todo 22");
 		Response res;
 		if(TodoDao.instance.getModel().containsKey(todo.getId())) {
 			res = Response.noContent().build();
