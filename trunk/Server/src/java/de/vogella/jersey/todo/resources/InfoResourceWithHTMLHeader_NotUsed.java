@@ -54,6 +54,7 @@ public class InfoResourceWithHTMLHeader_NotUsed {
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
 	public Response putContact(JAXBElement<Info> info) {
+            System.out.println("ENTRA");
 		Info c = info.getValue();
 		return putAndGetResponse(c);
 	}
@@ -61,8 +62,9 @@ public class InfoResourceWithHTMLHeader_NotUsed {
 
 	@PUT
 	public Response putInfo(@Context HttpHeaders headers, byte[] in) {
+            System.out.println("ENTRA");
 		Map<String,String> params = parse(new String(in));
-                Info m= new Info(params.get("Caller_id"), Integer.parseInt(params.get("duration")), Integer.parseInt(params.get("billsec")), Integer.parseInt(params.get("billmsec")), Integer.parseInt(params.get("progressec")), Integer.parseInt(params.get("progress_mediasec")), Integer.parseInt(params.get("flow_billsec")), Integer.parseInt(params.get("mduration")), Integer.parseInt(params.get("progressmsec")), Integer.parseInt(params.get("progress_mediamsec")), Integer.parseInt(params.get("flow_billmsec")), Integer.parseInt(params.get("uduration")));
+                Info m= new Info(params.get("id"),params.get("Caller_id"), Integer.parseInt(params.get("duration")), Integer.parseInt(params.get("billsec")), Integer.parseInt(params.get("billmsec")), Integer.parseInt(params.get("progressec")), Integer.parseInt(params.get("progress_mediasec")), Integer.parseInt(params.get("flow_billsec")), Integer.parseInt(params.get("mduration")), Integer.parseInt(params.get("progressmsec")), Integer.parseInt(params.get("progress_mediamsec")), Integer.parseInt(params.get("flow_billmsec")), Integer.parseInt(params.get("uduration")));
                 
 		//Info c = new Info(params.get("id"), params.get("summary"));
 
@@ -77,13 +79,14 @@ public class InfoResourceWithHTMLHeader_NotUsed {
 	}
 
 	private Response putAndGetResponse(Info info) {
+            System.out.println("ENTRA");
 		Response res;
-		if(InfoDao.instance.getModel().containsKey(info.getCaller_id())) {
+		if(InfoDao.instance.getModel().containsKey(info.getId())) {
 			res = Response.noContent().build();
 		} else {
 			res = Response.created(uriInfo.getAbsolutePath()).build();
 		}
-		InfoDao.instance.getModel().put(info.getCaller_id(), info);
+		InfoDao.instance.getModel().put(info.getId(), info);
 		return res;
 	}
 

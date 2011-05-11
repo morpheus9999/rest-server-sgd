@@ -65,13 +65,16 @@ public class InfosResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getCount() {
 		int count = InfoDao.instance.getModel().size();
-		return String.valueOf(count);
+		//System.out.println("ENTRA2222");
+                return String.valueOf(count)+"\n "+InfoDao.instance.getMedicoes().print_statistics();
+                
 	}
 
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void newInfo(
+                        @FormParam("id") String id,
 			@FormParam("caller_id") String caller_id,
 			@FormParam("duration") int duration,
                         @FormParam("billsec") int billsec,
@@ -85,15 +88,17 @@ public class InfosResource {
                         @FormParam("flow_billmsec") int flow_billmsec,
                         @FormParam("uduration") int uduration,
 			@Context HttpServletResponse servletResponse
+                
+                
 	) throws IOException {
-		Info info = new Info(caller_id, duration, billsec, billmsec, progressec, progress_mediasec, flow_billsec, mduration, progressmsec, progress_mediamsec, flow_billmsec, uduration);
-		
+		Info info = new Info(id,caller_id, duration, billsec, billmsec, progressec, progress_mediasec, flow_billsec, mduration, progressmsec, progress_mediamsec, flow_billmsec, uduration);
+		System.out.println("ENTRA");
 //                if (description!=null){
 //			Info.setDescription(description);
 //		}
-		InfoDao.instance.getModel().put(caller_id, info);
+		InfoDao.instance.getModel().put(id, info);
 
-		URI uri = uriInfo.getAbsolutePathBuilder().path(caller_id).build();
+		URI uri = uriInfo.getAbsolutePathBuilder().path(id).build();
 		Response.created(uri).build();
 
 		servletResponse.sendRedirect("../create_todo.html");
@@ -105,9 +110,9 @@ public class InfosResource {
 	// Allows to type http://localhost:8080/de.vogella.jersey.todo/rest/todos/1
 	// 1 will be treaded as parameter todo and passed to TodoResource
 	@Path("{info}")
-	public TodoResource getInfo(
+	public InfoResource getInfo(
 			@PathParam("info") String id) {
-		return new TodoResource(uriInfo, request, id);
+		return new InfoResource(uriInfo, request, id);
 	}
 
 }

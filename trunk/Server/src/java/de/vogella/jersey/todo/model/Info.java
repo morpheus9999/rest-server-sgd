@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Info {
+    private String id;
     private String caller_id;
     private int duration;
     private int billsec;
@@ -37,7 +38,8 @@ public class Info {
         this.tempoInicial = tempoInicial;
     }
 
-    public Info(String caller_id, int duration, int billsec, int billmsec, int progressec, int progress_mediasec, int flow_billsec, int mduration, int progressmsec, int progress_mediamsec, int flow_billmsec, int uduration) {
+    public Info(String id,String caller_id, int duration, int billsec, int billmsec, int progressec, int progress_mediasec, int flow_billsec, int mduration, int progressmsec, int progress_mediamsec, int flow_billmsec, int uduration) {
+        this.id=id;
         this.caller_id = caller_id;
         this.duration = duration;
         this.billsec = billsec;
@@ -53,7 +55,12 @@ public class Info {
         this.tempoInicial = tempoInicial;
     }
 
-
+    public String getId(){
+        return id;
+    }
+    public void setId(String id){
+        this.id=id;
+    }
 
     public int getBillmsec() {
         return billmsec;

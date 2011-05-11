@@ -14,6 +14,7 @@ import com.sun.jersey.api.representation.Form;
 
 
 import de.vogella.jersey.todo.model.Todo;
+import de.vogella.jersey.todo.model.Info;
 import java.io.StringWriter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -42,35 +43,32 @@ public class Tester {
 		ClientConfig config = new DefaultClientConfig();
 		Client client = Client.create(config);
 
-		WebResource service = client.resource("http://169.254.254.83:8084/Server/");
+		WebResource service = client.resource("http://localhost:8084/Server/");
 		// Create one todo
 		Todo todo = new Todo("4", "Blabla" );
+                ClientResponse response2;
+                System.out.println(dados[0].getCaller_id());
 //Info info = new Info();
-		ClientResponse response = service.path("rest").path("todos").path(todo.getId()).accept(MediaType.APPLICATION_XML).put(ClientResponse.class, todo);
-		// Return code should be 201 == created resource
-		/*System.out.println(response.getStatus());
-		// Get the Todos
-		System.out.println(service.path("rest").path("todos").accept(
-				MediaType.TEXT_XML).get(String.class));
-		// Get XML for application
-		System.out.println(service.path("rest").path("todos").accept(
-				MediaType.APPLICATION_JSON).get(String.class));
-		// Get JSON for application
-		System.out.println(service.path("rest").path("todos").accept(
-				MediaType.APPLICATION_XML).get(String.class));
-
-		// Get the  Todo with id 1
-		System.out.println(service.path("rest").path("todos/1").accept(
-				MediaType.APPLICATION_XML).get(String.class));
-		// get Todo with id 1
-		//service.path("rest").path("todos/8").delete();
-		// Get the all todos, id 1 should be deleted
-		System.out.println(service.path("rest").path("todos").accept(
-				MediaType.APPLICATION_XML).get(String.class));
-
-*/
-
-                for (i = 0; i < 100000; i++) {
+		//ClientResponse response = service.path("rest").path("todos").path(todo.getId()).accept(MediaType.APPLICATION_XML).put(ClientResponse.class, todo);
+		i=0;
+                for ( i = 0; i < 1000; i++) {
+                
+            
+                response2 = service.path("rest").path("Infos").path(dados[i].getId()).accept(MediaType.APPLICATION_XML).put(ClientResponse.class, dados[i]);
+                
+                }
+                
+                
+                /*
+                 * 
+                 * 
+                 * 
+                 * 
+                 * 
+                 * 
+                 * 
+                
+                 for (i = 0; i < 100000; i++) {
 		// Create a Todo
 		Form form = new Form();
 
@@ -197,7 +195,12 @@ public class Tester {
 				MediaType.APPLICATION_XML).get(String.class));
             }
 
-	}
+	
+                 * 
+                 * 
+                 * 
+                 */
+                }
 	private static URI getBaseURI() {
 		return UriBuilder.fromUri("http://localhost:8080/de.vogella.jersey.todo").build();
 	}
